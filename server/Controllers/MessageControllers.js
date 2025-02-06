@@ -1,4 +1,5 @@
 const cloudinary = require("../lib/Cloudinary");
+const { getReceiverSocketId } = require("../lib/Socket");
 const Messages = require("../Models/MessageSchema");
 exports.getMessages = async (req, res) => {
   try {
@@ -24,6 +25,7 @@ exports.sendMessages = async (req, res) => {
     const { text, image } = req.body;
     const { id: receiverid } = req.params;
     const senderId = req.user._id;
+    // console.log(text);
 
     let imageUrl;
     if (image) {
@@ -39,8 +41,6 @@ exports.sendMessages = async (req, res) => {
     });
 
     await newMessage.save();
-    //socket io here
-
     res.status(200).json(newMessage);
   } catch (error) {
     console.log("Error in send message:", error.message);

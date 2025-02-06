@@ -2,6 +2,8 @@ const { GenerateToken } = require("../lib/GenerateToken");
 const User = require("../Models/UserSchema");
 const bcrypt = require("bcryptjs");
 exports.Register = async (req, res) => {
+  console.log("called");
+  
   const { fullname, email, password } = req.body;
   try {
     if (!fullname || !email || !password) {
@@ -74,31 +76,32 @@ exports.Login = async (req, res) => {
 };
 
 exports.LogOut = async (req, res) => {
-    try {
-      res.clearCookie("token");
-      res.status(200).json({ success: true, message: "Logout successfully" });
-    } catch (error) {
-      console.log("Error in Logout:", error.message);
-      res.status(500).json({ success: false, message: "Internal server error" });
-    }
-  };
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ success: true, message: "Logout successfully" });
+  } catch (error) {
+    console.log("Error in Logout:", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 
-exports.CheckAuth = async(req,res)=>{
-    try {
-        // res.status(200).json(req.user)
-        res.status(200).json({
-            success: true,
-            message: "User logged in successfully",
-            user: {
-              id: req.user._id,
-              email: req.user.email,
-              username: req.user.fullname,
-              ProfilePic: req.user.profilepic,
-            }    
-        })
-        
-    } catch (error) {
-        console.log("Error in check auth:", error.message);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
-}
+exports.CheckAuth = async (req, res) => {
+  // console.log("called");
+
+  try {
+    // res.status(200).json(req.user)
+    res.status(200).json({
+      success: true,
+      message: "User logged in successfully",
+      user: {
+        id: req.user._id,
+        email: req.user.email,
+        username: req.user.fullname,
+        ProfilePic: req.user.profilepic,
+      },
+    });
+  } catch (error) {
+    console.log("Error in check auth:", error.message);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
