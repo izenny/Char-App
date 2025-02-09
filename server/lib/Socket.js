@@ -1,4 +1,5 @@
 const { Server } = require("socket.io");
+const { joinRoom, sendMessage } = require("../Controllers/ChatController");
 
 const initializeSocket = (server) => {
   const io = new Server(server, {
@@ -8,20 +9,30 @@ const initializeSocket = (server) => {
     },
   });
 
-  exports.getReceiverSocketId = (userId) => {
-    return userSocketMap(userId);
-  };
-
-  // use to store online users
+  // Use to store online users
   const userSocketMap = {};
 
   io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
     const userId = socket.handshake.query.userId;
-    console.log("connected users", userId);
+    console.log("Connected users:", userId);
 
+    // Track online users
     if (userId) userSocketMap[userId] = socket.id;
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+    // Join room
+    socket.on("join room", (room) => {
+      console.log("Joined room:", room);
+      joinRoom(socket, room);
+    });
+
+    // Handle sending messages
+    socket.on("chatMessage", (data) => {
+      sendMessage(io, socket, data, userSocketMap);
+    });
+
+    // Handle disconnection
     socket.on("disconnect", () => {
       console.log(`User Disconnected: ${socket.id}`);
       delete userSocketMap[userId];

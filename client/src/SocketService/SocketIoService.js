@@ -35,7 +35,7 @@
 
 import { io } from "socket.io-client";
 import { setOnlineUsers } from "../Redux/AuthSlice";
-import { setMessages } from "../Redux/ChatSlice";
+import { addMessage, setMessages } from "../Redux/ChatSlice";
 
 let socket = null;
 
@@ -56,10 +56,7 @@ export const connectSocket = (userId, dispatch) => {
     dispatch(setOnlineUsers(users)); // Only one place to update Redux
   });
 
-  socket.on("newMessage",(newMessage)=>{
-    dispatch(setMessages(newMessage))
-  })
-
+ 
   return socket;
 };
 

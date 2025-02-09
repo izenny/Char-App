@@ -107,19 +107,136 @@
 
 // export default MessageInput;
 
+// import { Image, Send, X } from "lucide-react";
+// import React, { useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { sendMessage } from "../Redux/ChatSlice"; // Removed setSelectedUser import
+// import toast from "react-hot-toast";
+
+// const MessageInput = () => {
+//   const [text, setText] = useState("");
+//   const [imagePreview, setImagePreview] = useState(null);
+//   const fileInputRef = useRef(null);
+//   const dispatch = useDispatch();
+//   const { selectedUser } = useSelector((state) => state.chat); // Get selectedUser from Redux
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (!file.type.startsWith("image/")) {
+//       toast.error("Please select an image file");
+//       return;
+//     }
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       setImagePreview(reader.result);
+//     };
+//     reader.readAsDataURL(file);
+//   };
+
+//   const removeImage = () => {
+//     setImagePreview(null);
+//     if (fileInputRef.current) fileInputRef.current.value = "";
+//   };
+
+//   const handleSendMessage = async (e) => {
+//     e.preventDefault();
+//     if (!text.trim() && !imagePreview) return;
+
+//     try {
+//       const content = {
+//         text: text.trim(),
+//         image: imagePreview,
+//       };
+//       const id = selectedUser._id
+
+//       await dispatch(sendMessage({id, content}));
+//       // Clear form
+//       setText("");
+//       setImagePreview(null);
+//       if (fileInputRef.current) fileInputRef.current.value = "";
+//     } catch (error) {
+//       console.error("Failed to send message:", error);
+//     }
+//   };
+
+//   return (
+//     <div className="w-full">
+//       {imagePreview && (
+//         <div className="mb-3 flex items-center gap-2">
+//           <div className="relative">
+//             <img
+//               src={imagePreview}
+//               alt="Preview"
+//               className="w-20 h-20 object-cover rounded-lg border border-zinc-700"
+//             />
+//             <button
+//               onClick={removeImage}
+//               className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300 flex items-center justify-center"
+//               type="button"
+//             >
+//               <X className="size-3" />
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+//         <div className="flex-1 flex gap-2">
+//           <input
+//             type="text"
+//             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+//             placeholder="Type a message..."
+//             value={text}
+//             onChange={(e) => setText(e.target.value)}
+//           />
+//           <input
+//             type="file"
+//             accept="image/*"
+//             className="hidden"
+//             ref={fileInputRef}
+//             onChange={handleImageChange}
+//           />
+//           <button
+//             type="button"
+//             className={`hidden sm:flex btn btn-circle ${
+//               imagePreview ? "text-emerald-500" : "text-zinc-400"
+//             }`}
+//             onClick={() => fileInputRef.current?.click()}
+//           >
+//             <Image size={20} />
+//           </button>
+//         </div>
+//         <button
+//           type="submit"
+//           className="btn btn-sm btn-circle"
+//           disabled={!text.trim() && !imagePreview}
+//         >
+//           <Send size={22} />
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default MessageInput;
+
 import { Image, Send, X } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../Redux/ChatSlice"; // Removed setSelectedUser import
+import { addMessage, fetchChatRooms, sendMessage } from "../Redux/ChatSlice";
 import toast from "react-hot-toast";
+import { getSocket } from "../SocketService/SocketIoService";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
-  const { selectedUser } = useSelector((state) => state.chat); // Get selectedUser from Redux
 
+  const { selectedUser, participants, room } = useSelector(
+    (state) => state.chat
+  );
+  const { user } = useSelector((state) => state.auth);
+  const receiver = participants?.find((u) => u?._id !== user?._id);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file.type.startsWith("image/")) {
@@ -143,13 +260,25 @@ const MessageInput = () => {
     if (!text.trim() && !imagePreview) return;
 
     try {
-      const content = {
+      const messageData = {
+        room,
+        senderId: user.id,
         text: text.trim(),
         image: imagePreview,
       };
-      const id = selectedUser._id
-      
-      await dispatch(sendMessage({id, content}));
+      const newMessage = {
+        sender: user.id,
+        text: text.trim(),
+        image: imagePreview,
+      };
+      const socket = getSocket();
+      if (socket) {
+        socket.emit("chatMessage", messageData);
+        // dispatch(fetchChatRooms());
+      } else {
+        console.error("❌ Socket is not connected.");
+      }
+
       // Clear form
       setText("");
       setImagePreview(null);
@@ -218,3 +347,91 @@ const MessageInput = () => {
 };
 
 export default MessageInput;
+
+// import { Image, Send, X } from "lucide-react";
+// import React, { useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { io } from "socket.io-client";
+// import toast from "react-hot-toast";
+
+// const socket = io("http://localhost:5000"); // Connect to server
+
+// const MessageInput = () => {
+//   const [text, setText] = useState("");
+//   const [imagePreview, setImagePreview] = useState(null);
+//   const fileInputRef = useRef(null);
+//   const {  participants, room } = useSelector((state) => state.chat);
+//   const { user } = useSelector((state) => state.auth);
+
+//   // Find the receiver (user that is NOT the current user)
+//   const receiver = participants?.find((u) => u._id !== user._id);
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (!file || !file.type.startsWith("image/")) {
+//       toast.error("Please select an image file");
+//       return;
+//     }
+
+//     const reader = new FileReader();
+//     reader.onloadend = () => setImagePreview(reader.result);
+//     reader.readAsDataURL(file);
+//   };
+
+//   const removeImage = () => {
+//     setImagePreview(null);
+//     if (fileInputRef.current) fileInputRef.current.value = "";
+//   };
+
+//   const handleSendMessage = (e) => {
+//     e.preventDefault();
+//     if (!text.trim() && !imagePreview) return;
+
+//     const messageData = {
+//       room,
+//       senderId: user._id,
+//       text: text.trim(),
+//       image: imagePreview,
+//     };
+
+//     // Send message via socket
+//     socket.emit("sendMessage", messageData);
+
+//     // Clear form
+//     setText("");
+//     removeImage();
+//   };
+
+//   return (
+//     <div className="w-full">
+//       {imagePreview && (
+//         <div className="mb-3 flex items-center gap-2">
+//           <div className="relative">
+//             <img src={imagePreview} alt="Preview" className="w-20 h-20 rounded-lg border" />
+//             <button onClick={removeImage} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
+//               <X className="size-3" />
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+//         <input
+//           type="text"
+//           className="w-full p-2 border rounded-lg"
+//           placeholder="Type a message..."
+//           value={text}
+//           onChange={(e) => setText(e.target.value)}
+//         />
+//         <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageChange} />
+//         <button type="button" onClick={() => fileInputRef.current?.click()}>
+//           <Image size={20} />
+//         </button>
+//         <button type="submit" disabled={!text.trim() && !imagePreview}>
+//           <Send size={22} />
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default MessageInput;

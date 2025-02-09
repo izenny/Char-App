@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../Redux/AuthSlice";
 import toast from "react-hot-toast";
-
+import userIcon from "../../public/UserIcon.png"
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -43,13 +43,13 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-2xl p-8 max-w-sm w-full text-center">
+    <div className="flex items-center justify-center h-full ">
+      <div className="bg-slate-200 shadow-lg rounded-2xl p-8 max-w-sm w-full text-center">
         {/* Profile Picture */}
         <div className="flex justify-center mb-4">
           <img
             src={
-              preview || user.profilePic || "https://via.placeholder.com/150"
+              preview || user?.profilePic || userIcon
             }
             alt="Profile"
             className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"

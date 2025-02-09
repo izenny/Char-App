@@ -5,12 +5,16 @@ import SidebarSkeleton from "./Skeletons/SidebarSkeleton";
 import { Users } from "lucide-react";
 
 const Sidebar = () => {
-  const { users, isUserLoading, selectedUser } = useSelector((state) => state.chat);
+  const { users, isUserLoading, selectedUser } = useSelector(
+    (state) => state.chat
+  );
+  const { onlineUsers } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
 
   // Show skeleton while loading
   if (isUserLoading) return <SidebarSkeleton />;
@@ -20,7 +24,7 @@ const Sidebar = () => {
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center gap-2">
           <Users className="size-6" />
-          <span className="font-medium hidden lg:block">Contacts</span>
+          <span className="font-medium hidden lg:block">New Chat</span>
         </div>
       </div>
 
@@ -32,7 +36,11 @@ const Sidebar = () => {
               key={user._id}
               onClick={() => dispatch(setSelectedUser(user))}
               className={`flex items-center gap-3 p-3 cursor-pointer transition-all rounded-lg 
-                ${selectedUser === user._id ? "bg-blue-500 text-white" : "hover:bg-gray-100"}`}
+                ${
+                  selectedUser === user._id
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-gray-100"
+                }`}
             >
               {/* Profile Picture */}
               <img
@@ -41,6 +49,9 @@ const Sidebar = () => {
                 className="w-10 h-10 rounded-full object-cover border border-gray-300"
               />
               <span className="hidden lg:block">{user.fullname}</span>
+              <span className="hidden lg:block">
+                {onlineUsers.includes(user?.id) ? "Online" : "Offline"}
+              </span>
             </div>
           ))
         ) : (
