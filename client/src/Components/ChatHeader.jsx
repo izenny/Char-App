@@ -10,7 +10,7 @@ const ChatHeader = () => {
   const receiver = participants?.find((u) => u._id !== user.id);
 
   return (
-    <div className="flex items-center gap-4 p-4 border-b border-gray-300 bg-white">
+    <div className="flex items-center gap-4 p-4 border-b bg-zinc-900 text-slate-50">
       {/* Profile Picture */}
       <img
         src={receiver?.profilePic || userIcon} 
@@ -22,7 +22,7 @@ const ChatHeader = () => {
         <h2 className="text-lg font-semibold">
           {receiver?.fullname || "Unknown"}
         </h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-xs text-blue-700">
           {onlineUsers.includes(receiver?._id) ? "Online" : "Offline"}
         </p>
       </div>

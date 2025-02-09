@@ -58,8 +58,8 @@ exports.sendMessage = async (io, socket, data, userSocketMap) => {
       return socket.emit("error", { message: "Chat room not found" });
     }
 
-    
-    const newMessage = { sender: senderId, text, image };
+   
+    const newMessage = { sender: senderId, text, image, timestamp: new Date() };
 
     // Add message to chat
     chat.messages.push(newMessage);
