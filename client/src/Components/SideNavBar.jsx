@@ -54,8 +54,8 @@ import { Home, PhoneCall, Search, Settings, Video } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
-import icon from "../assets/UserIcon.png";
-import userIcon from "../assets/UserIcon.png";
+// import icon from "../assets/UserIcon.png";
+// import userIcon from "../assets/UserIcon.png";
 import NochatSelected from "./NochatSelected";
 import ChatContainer from "./ChatContainer";
 const SideNavBar = () => {
@@ -128,13 +128,13 @@ const SideNavBar = () => {
           </NavLink>
         </div>
         {/* Profile Picture */}
-        <NavLink to="/profile">
+        {/* <NavLink to="/profile">
           <img
             src={user?.profilePic || userIcon}
             alt={user?.fullname}
             className="w-12 h-12 rounded-full object-cover border border-gray-300 bg-slate-800"
           />
-        </NavLink>
+        </NavLink> */}
       </div>
 
       {/* Main Content */}
