@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const response = await axiosInstance.post("auth/login", formData);
-      console.log(response.data.user);
+      // console.log(response.data.user);
       
       return response.data;
 
@@ -69,7 +69,7 @@ export const authCheck = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get("auth/authcheck");
-      console.log("auth",response.data);
+      // console.log("auth",response.data);
       
       return response.data;
     } catch (error) {

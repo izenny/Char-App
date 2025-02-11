@@ -54,7 +54,7 @@ import { Home, PhoneCall, Search, Settings, Video } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
-import icon from "../assets/UserIcon.png";
+import icon from "../assets/icon.png";
 import userIcon from "../assets/UserIcon.png";
 import NochatSelected from "./NochatSelected";
 import ChatContainer from "./ChatContainer";
