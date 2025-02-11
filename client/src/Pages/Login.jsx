@@ -41,7 +41,7 @@ const Login = () => {
     if (validate()) {
       await dispatch(loginUser(formData)).unwrap();
       // toast.success("Login Successful!");
-      // navigate("/");
+      navigate("/");
     } else {
       toast.error("Please fix the errors before submitting.");
     }
