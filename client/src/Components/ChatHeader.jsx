@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
-import userIcon from "../../public/UserIcon.png";
+import userIcon from "../assets/UserIcon.png";
 
 const ChatHeader = () => {
   const { participants } = useSelector((state) => state.chat);

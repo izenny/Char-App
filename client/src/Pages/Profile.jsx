@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../Redux/AuthSlice";
 import toast from "react-hot-toast";
-import userIcon from "../../public/UserIcon.png"
+import userIcon from "../assets/UserIcon.png";
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   // const dispatch = useDispatch();

@@ -54,13 +54,14 @@ import { Home, PhoneCall, Search, Settings, Video } from "lucide-react";
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
-import icon from "../../public/vite.svg";
-import userIcon from "../../public/UserIcon.png";
+import icon from "../assets/userIcon.png";
+import userIcon from "../assets/UserIcon.png";
 import NochatSelected from "./NochatSelected";
 import ChatContainer from "./ChatContainer";
 const SideNavBar = () => {
-  const { user } = useSelector((state) => state.auth);
-  const { room } = useSelector((state) => state.chat);
+  const { user } = useSelector((state) => state.auth) || {};
+  const { room } = useSelector((state) => state.chat) || {};
+
   return (
     <div className="w-full h-full flex gap-1">
       {/* Sidebar Navigation */}

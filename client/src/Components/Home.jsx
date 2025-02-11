@@ -9,7 +9,7 @@ import {
   setMessages,
   setParticipants,
 } from "../Redux/ChatSlice";
-import userIcon from "../../public/UserIcon.png";
+import userIcon from "../assets/UserIcon.png";
 import { getSocket } from "../SocketService/SocketIoService";
 
 const Home = () => {

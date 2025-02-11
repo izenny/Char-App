@@ -5,7 +5,7 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./Skeletons/MessageSkeleton";
 import { formatMessageTime } from "../Lib/utils";
-import userIcon from "../../public/UserIcon.png";
+import userIcon from "../assets/UserIcon.png";
 import { getSocket } from "../SocketService/SocketIoService";
 
 const ChatContainer = () => {
