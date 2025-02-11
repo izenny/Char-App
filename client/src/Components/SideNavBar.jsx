@@ -67,7 +67,7 @@ const SideNavBar = () => {
       {/* Sidebar Navigation */}
       <div className="h-full w-20 p-2 py-8 flex flex-col justify-between bg-zinc-900 text-white items-center">
         <div>
-          <img src={icon} alt="" className="w-8 h-8  object-cover " />
+          {/* <img src={icon} alt="" className="w-8 h-8  object-cover " /> */}
         </div>
         {/* Navigation Links */}
         <div className="flex flex-col items-center gap-5">
