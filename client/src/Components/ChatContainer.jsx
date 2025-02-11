@@ -16,7 +16,7 @@ const ChatContainer = () => {
     (state) => state.chat
   );
 
-  const receiver = participants?.find((u) => u._id !== user.id);
+  const receiver = participants?.find((u) => u._id !== user?.id);
   useEffect(() => {
     const socket = getSocket();
     if (!socket) {
@@ -76,15 +76,15 @@ const ChatContainer = () => {
             // key={message._id}
             key={index}
             className={`chat ${
-              message.sender === user.id ? "chat-end" : "chat-start"
+              message.sender === user?.id ? "chat-end" : "chat-start"
             }`}
           >
             <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
                   src={
-                    message.sender === user.id
-                      ? user.profilepic || userIcon
+                    message.sender === user?.id
+                      ? user?.profilepic || userIcon
                       : receiver?.profilepic || userIcon
                   }
                   alt="profile pic"
@@ -93,18 +93,18 @@ const ChatContainer = () => {
             </div>
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-                {formatMessageTime(message.timestamp)}
+                {formatMessageTime(message?.timestamp)}
               </time>
             </div>
             <div className="chat-bubble flex flex-col">
-              {message.image && (
+              {message?.image && (
                 <img
-                  src={message.image}
+                  src={message?.image}
                   alt="attachment"
                   className="sm:max-w-[200px] rounded-md mb-2"
                 />
               )}
-              {message.text && <p>{message.text}</p>}
+              {message?.text && <p>{message?.text}</p>}
               <div ref={messageEndRef}></div>
             </div>
           </div>

@@ -130,7 +130,7 @@ const SideNavBar = () => {
         <NavLink to="/profile">
           <img
             src={user?.profilePic || userIcon}
-            alt={user.fullname}
+            alt={user?.fullname}
             className="w-12 h-12 rounded-full object-cover border border-gray-300 bg-slate-800"
           />
         </NavLink>

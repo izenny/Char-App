@@ -7,7 +7,7 @@ const ChatHeader = () => {
   const { participants } = useSelector((state) => state.chat);
   const { user, onlineUsers } = useSelector((state) => state.auth);
 
-  const receiver = participants?.find((u) => u._id !== user.id);
+  const receiver = participants?.find((u) => u._id !== user?.id);
 
   return (
     <div className="flex items-center gap-4 p-4 border-b bg-zinc-900 text-slate-50">

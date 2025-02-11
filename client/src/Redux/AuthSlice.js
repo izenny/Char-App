@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const response = await axiosInstance.post("auth/login", formData);
-      console.log(response.data);
+      console.log(response.data.user);
       
       return response.data;
 
@@ -149,7 +149,7 @@ const AuthSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.user;
+        state.user = action.payload?.user;
         state.isAuthenticated = true;
         // connectSocket(action.payload.user.id);  // Use dispatch here
         toast.success("Login successful!");
