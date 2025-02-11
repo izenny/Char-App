@@ -82,7 +82,7 @@ const cors = require("cors");
 const authRoutes = require("./Routes/authRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const messageRoutes = require("./Routes/messageRoutes");
-const chatRoutes = require("./Routes/ChatRoutes")
+const chatRoutes = require("./Routes/ChatRoutes");
 const initializeSocket = require("./lib/Socket");
 
 dotenv.config();
@@ -92,11 +92,12 @@ const server = http.createServer(app); // Create HTTP server
 
 // Middleware
 // Client_URL
-app.use(cors({ origin: "https://chatty-web-site.netlify.app", credentials: true }));
+app.use(
+  cors({ origin: "https://chatty-web-site.netlify.app", credentials: true })
+);
 
 // app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 // app.use(cors({ origin: "*", credentials: true }));
-
 
 app.use(express.json());
 app.use(cookieParser());
@@ -105,7 +106,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/chat",chatRoutes)
+app.use("/api/chat", chatRoutes);
 // Initialize Socket.IO
 initializeSocket(server);
 

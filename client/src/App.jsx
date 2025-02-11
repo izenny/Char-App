@@ -27,7 +27,7 @@ const App = () => {
   const dispatch = useDispatch();
   // console.log(user, isAuthenticated, isLoading, onlineUsers);
   useEffect(() => {
-    dispatch(authCheck());
+    // dispatch(authCheck());
 
     let socket;
     if (user && isAuthenticated) {
@@ -39,7 +39,7 @@ const App = () => {
         disconnectSocket();
       }
     };
-  }, [dispatch, user?.id]);
+  }, [user?.id]);
 
 
 
