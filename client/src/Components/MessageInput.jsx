@@ -2,8 +2,7 @@
 
 import { Image, Send, X } from "lucide-react";
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addMessage, fetchChatRooms, sendMessage } from "../Redux/ChatSlice";
+import {  useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { getSocket } from "../SocketService/SocketIoService";
 
@@ -11,7 +10,7 @@ const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-  const dispatch = useDispatch();
+  
 
   const {  participants, room } = useSelector(
     (state) => state.chat
@@ -43,7 +42,7 @@ const MessageInput = () => {
     try {
       const messageData = {
         room,
-        senderId: user.id,
+        senderId: user?.id,
         text: text.trim(),
         image: imagePreview,
       };

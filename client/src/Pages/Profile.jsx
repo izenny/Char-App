@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import userIcon from "../../public/UserIcon.png"
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [selectedImg, setSelectedImg] = useState(null);

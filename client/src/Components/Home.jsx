@@ -14,7 +14,7 @@ import { getSocket } from "../SocketService/SocketIoService";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("All Chats");
-  const { users, isUserLoading, selectedUser, rooms } = useSelector(
+  const { users, selectedUser, rooms } = useSelector(
     (state) => state.chat
   );
   const { onlineUsers, user } = useSelector((state) => state.auth);
@@ -31,11 +31,11 @@ const Home = () => {
   }, [dispatch]);
 
   const joinRoomHandler = (room) => {
-    console.log(room.room);
-    dispatch(setChatRoom(room.room));
-    dispatch(setParticipants(room.participants));
+    console.log(room?.room);
+    dispatch(setChatRoom(room?.room));
+    dispatch(setParticipants(room?.participants));
 
-    socket.emit("join room", room.room);
+    socket.emit("join room", room?.room);
 
     socket.on("oldMessage", (messages) => {
       dispatch(setMessages(messages));

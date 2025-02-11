@@ -60,7 +60,7 @@ import NochatSelected from "./NochatSelected";
 import ChatContainer from "./ChatContainer";
 const SideNavBar = () => {
   const { user } = useSelector((state) => state.auth);
-  const { selectedUser,room } = useSelector((state) => state.chat);
+  const {room } = useSelector((state) => state.chat);
   return (
     <div className="w-full h-full flex gap-1">
       {/* Sidebar Navigation */}

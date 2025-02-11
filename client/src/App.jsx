@@ -13,7 +13,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Settings from "./Pages/Settings";
-import { Loader } from "lucide-react";
+
 import { Toaster } from "react-hot-toast";
 import Home from "./Components/Home";
 import Search from "./Components/Search";
@@ -21,7 +21,7 @@ import AudioCalls from "./Components/AudioCalls";
 import VideoCalls from "./Components/VideoCalls";
 
 const App = () => {
-  const { user, isAuthenticated, isLoading, onlineUsers } = useSelector(
+  const { user, isAuthenticated} = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
