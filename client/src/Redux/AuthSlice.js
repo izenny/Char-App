@@ -69,6 +69,8 @@ export const authCheck = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get("auth/authcheck");
+      console.log("auth",response.data);
+      
       return response.data;
     } catch (error) {
       const message =
