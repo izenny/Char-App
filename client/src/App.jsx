@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,11 +20,11 @@ import AudioCalls from "./Components/AudioCalls";
 import VideoCalls from "./Components/VideoCalls";
 
 const App = () => {
-  const { user, isAuthenticated} = useSelector(
+  const { user, isAuthenticated, isLoading, onlineUsers } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
-  // console.log(user, isAuthenticated, isLoading, onlineUsers);
+  console.log(user, isAuthenticated, isLoading, onlineUsers);
   useEffect(() => {
     dispatch(authCheck());
 
@@ -41,8 +40,6 @@ const App = () => {
     };
   }, [dispatch, user?.id]);
 
-
-
   return (
     <div className="w-full h-screen ">
       {/* <Navbar /> */}
@@ -51,7 +48,7 @@ const App = () => {
           path="/"
           element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
         >
-          <Route index path="/" element={<Home />} />
+         
           <Route path="search" element={<Search />} />
           <Route path="call" element={<AudioCalls />} />
           <Route path="video-call" element={<VideoCalls />} />
