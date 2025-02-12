@@ -48,7 +48,7 @@ const App = () => {
           path="/"
           element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
         >
-         
+         <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="call" element={<AudioCalls />} />
           <Route path="video-call" element={<VideoCalls />} />
