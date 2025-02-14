@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,9 +13,7 @@ import { getSocket } from "../SocketService/SocketIoService";
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState("All Chats");
-  const { users, selectedUser, rooms } = useSelector(
-    (state) => state.chat
-  );
+  const { users, selectedUser, rooms } = useSelector((state) => state.chat);
   const { onlineUsers, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -41,7 +38,6 @@ const Home = () => {
       dispatch(setMessages(messages));
     });
   };
-
 
   return (
     <div className="h-full w-full space-y-2">
@@ -80,21 +76,28 @@ const Home = () => {
                   <div
                     key={room._id}
                     onClick={() => joinRoomHandler(room)}
-                    className="flex bg-zinc-800 items-center gap-3 p-3 cursor-pointer transition-all rounded-lg hover:bg-zinc-700 text-white"
+                    className="flex  bg-zinc-800 items-center gap-3 p-3 cursor-pointer transition-all rounded-lg hover:bg-zinc-700 text-white"
                   >
-                    
-                    <img
-                      src={room.roompic || otherParticipant?.profilepic || userIcon}
-                      alt={otherParticipant?.fullname}
-                      className="w-10 h-10 rounded-full object-cover border border-gray-300"
-                    />
+                    {/* <div className="avatar online w-10 h-10 "> */}
+                    <div className={`avatar w-10 h-10 ${onlineUsers.includes(otherParticipant?._id) ? "online" : "offline"}`}>
+
+                      <img
+                        src={
+                          room.roompic ||
+                          otherParticipant?.profilepic ||
+                          userIcon
+                        }
+                        alt={otherParticipant?.fullname}
+                        className="w-10 h-10 rounded-full object-cover border border-gray-300"
+                      />
+                    </div>
                     <div className="flex flex-col">
                       <span className="font-semibold">
                         {room.roomname ||
                           otherParticipant?.fullname ||
                           "Unknown Chat"}
                       </span>
-                      
+
                       <span className="text-xs text-gray-400">
                         {lastMessage
                           ? `${

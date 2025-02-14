@@ -66,7 +66,7 @@ const SideNavBar = () => {
     <div className="w-full h-full flex gap-1">
       {/* Sidebar Navigation */}
       <div className="h-full w-20 p-2 py-8 flex flex-col justify-between bg-zinc-900 text-white items-center">
-        <div>
+        <div className="">
           <img src={icon} alt="" className="w-8 h-8  object-cover " />
         </div>
         {/* Navigation Links */}
@@ -75,7 +75,7 @@ const SideNavBar = () => {
             to="/"
             className={({ isActive }) =>
               `flex flex-col gap-1 items-center cursor-pointer ${
-                isActive ? "text-blue-400" : "hover:text-blue-400"
+                isActive ? "text-purple-600" : "hover:text-purple-400"
               }`
             }
           >
@@ -86,7 +86,7 @@ const SideNavBar = () => {
             to="/search"
             className={({ isActive }) =>
               `flex flex-col gap-1 items-center cursor-pointer ${
-                isActive ? "text-blue-400" : "hover:text-blue-400"
+                isActive ? "text-purple-600" : "hover:text-purple-400"
               }`
             }
           >
@@ -97,7 +97,7 @@ const SideNavBar = () => {
             to="/call"
             className={({ isActive }) =>
               `flex flex-col gap-1 items-center cursor-pointer ${
-                isActive ? "text-blue-400" : "hover:text-blue-400"
+                isActive ? "text-purple-600" : "hover:text-purple-400"
               }`
             }
           >
@@ -108,7 +108,7 @@ const SideNavBar = () => {
             to="/video-call"
             className={({ isActive }) =>
               `flex flex-col gap-1 items-center cursor-pointer ${
-                isActive ? "text-blue-400" : "hover:text-blue-400"
+                isActive ? "text-purple-600" : "hover:text-purple-400"
               }`
             }
           >
@@ -119,7 +119,7 @@ const SideNavBar = () => {
             to="/settings"
             className={({ isActive }) =>
               `flex flex-col gap-1 items-center cursor-pointer ${
-                isActive ? "text-blue-400" : "hover:text-blue-400"
+                isActive ? "text-purple-600" : "hover:text-purple-400"
               }`
             }
           >
@@ -129,11 +129,13 @@ const SideNavBar = () => {
         </div>
         {/* Profile Picture */}
         <NavLink to="/profile">
-          <img
-            src={user?.profilePic || userIcon}
-            alt={user?.fullname}
-            className="w-12 h-12 rounded-full object-cover border border-gray-300 bg-slate-800"
-          />
+          <div className="ring-primary ring-offset-base-100  rounded-full ring ring-offset-2">
+            <img
+              src={user?.ProfilePic || userIcon}
+              alt={user?.fullname}
+              className="w-12 h-12 rounded-full object-cover border border-gray-300 bg-slate-800"
+            />
+          </div>
         </NavLink>
       </div>
 
