@@ -16,6 +16,7 @@ const Home = () => {
   const { users, selectedUser, rooms } = useSelector((state) => state.chat);
   const { onlineUsers, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  console.log(users);
 
   const socket = getSocket();
   if (!socket) {
@@ -78,9 +79,13 @@ const Home = () => {
                     onClick={() => joinRoomHandler(room)}
                     className="flex  bg-zinc-800 items-center gap-3 p-3 cursor-pointer transition-all rounded-lg hover:bg-zinc-700 text-white"
                   >
-                    {/* <div className="avatar online w-10 h-10 "> */}
-                    <div className={`avatar w-10 h-10 ${onlineUsers.includes(otherParticipant?._id) ? "online" : "offline"}`}>
-
+                    <div
+                      className={`avatar w-10 h-10  ${
+                        onlineUsers.includes(otherParticipant?._id)
+                          ? "online"
+                          : "none"
+                      }`}
+                    >
                       <img
                         src={
                           room.roompic ||
@@ -144,6 +149,13 @@ const Home = () => {
                     alt={user?.fullname}
                     className="w-10 h-10 rounded-full object-cover border border-gray-300"
                   />
+                  {/* <div className="rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-1 ">
+                    <img
+                      src={user?.profilepic || userIcon}
+                      alt={user?.fullname}
+                      className="w-10 h-10 rounded-full object-cover "
+                    />
+                  </div> */}
                   <div className="flex flex-col">
                     <span className=" ">{user?.fullname}</span>
                     <span className=" text-xs">

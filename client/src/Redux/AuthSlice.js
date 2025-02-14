@@ -196,7 +196,7 @@ const AuthSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
   
-        toast.error(action.payload);
+        // toast.error(action.payload);
       })
 
       // Logout User

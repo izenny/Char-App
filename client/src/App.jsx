@@ -24,7 +24,7 @@ const App = () => {
     (state) => state.auth
   );
   const dispatch = useDispatch();
-  console.log(user, isAuthenticated, isLoading, onlineUsers);
+  // console.log(user, isAuthenticated, isLoading, onlineUsers);
   useEffect(() => {
     dispatch(authCheck());
 
@@ -41,7 +41,7 @@ const App = () => {
   }, [dispatch, user?.id]);
 
   return (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen bg-zinc-800">
       {/* <Navbar /> */}
       <Routes>
         <Route

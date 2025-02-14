@@ -129,7 +129,7 @@ const SideNavBar = () => {
         </div>
         {/* Profile Picture */}
         <NavLink to="/profile">
-          <div className="ring-primary ring-offset-base-100  rounded-full ring ring-offset-2">
+          <div className="rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-0.5 ">
             <img
               src={user?.ProfilePic || userIcon}
               alt={user?.fullname}
