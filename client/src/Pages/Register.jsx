@@ -219,8 +219,8 @@ const Register = () => {
             Register
           </button>
         </form>
-        <Link to="/login" className="text-white text-center block mt-4">
-          Already have an account? Login
+        <Link to="/login" className="text-white text-center text-sm block mt-4">
+          Already have an account? <span className="text-purple-500">Login</span>
         </Link>
       </div>
     </div>

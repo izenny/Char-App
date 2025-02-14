@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Redux/AuthSlice";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeClosed} from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +51,9 @@ const Login = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-zinc-900">
       <div className="w-96 p-8  rounded-2xl shadow-xl bg-zinc-800 dark:bg-zinc-800">
-        <h2 className="text-2xl text-white font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl text-white font-bold mb-6 text-center">
+          Login
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block mb-2 font-medium text-white">Email</label>
@@ -69,7 +71,9 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-white">Password</label>
+            <label className="block mb-2 font-medium text-white">
+              Password
+            </label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -96,14 +100,20 @@ const Login = () => {
             disabled={isLoading}
             type="submit"
             className={`w-full transition text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br 
-  focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg 
-    font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 
-  ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
+                        focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg 
+                        font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 
+                        ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
           >
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-       <Link to="/register" className="text-white text-center block mt-4">Don't have an account? Register</Link>
+        <Link
+          to="/register"
+          className="text-white text-center text-sm block mt-4"
+        >
+          Don't have an account?{" "}
+          <span className="text-purple-500">Register</span>
+        </Link>
       </div>
     </div>
   );
